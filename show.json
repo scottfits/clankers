@@ -1,0 +1,53 @@
+{
+  "site": "https://clankers.fm",
+  "name": "Conversations with Clankers",
+  "feed": "https://anchor.fm/s/11a757edc/podcast/rss",
+  "links": {
+    "youtube": "https://www.youtube.com/watch?v=LGwXzYCNqXA&list=PLVyxrlZ6UNhM",
+    "spotify": "https://podcasters.spotify.com/pod/show/scott-fitsimones",
+    "apple": "https://podcasts.apple.com/us/podcast/conversations-with-clankers/id6837877027"
+  },
+  "icons": {
+    "youtube": "",
+    "spotify": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQz-pzrJrHHHCJ1LSek991YTxYQfEbeB3NjCV6nx--Hdw&s=10",
+    "apple": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQeo4XAt_JiEZxa98EXzyaDbr_qkDgzYVMc5qBg5hH-4w&s"
+  },
+  "episodes": [
+    {
+      "slug": "riemann",
+      "number": 1,
+      "title": "Why Does the Riemann Hypothesis Matter?",
+      "guid": "07d508b1-ecf7-4b2b-a6aa-bc5eddf4d036",
+      "youtube": "LGwXzYCNqXA",
+      "spotify": "https://open.spotify.com/episode/07jxZJI4zKL0TDijhHENnw",
+      "extra": "zeta",
+      "paragraphs": [
+        "Why does the Riemann Hypothesis matter? I asked Claude the day after Anthropic mathematician Levent Alpöge released a proof of it, built with Claude, as 17 million lines of Lean code.",
+        "We start with Riemann himself and build up from nothing: why primes matter, Euclid’s proof that they never run out, Gauss’s estimate of how they thin out, and how the zeros of the zeta function turn that estimate into the exact count.",
+        "Then the proof: what’s known about how it works, which Millennium Prize problem could go next, and what mathematicians do with a result a machine can verify but no person can yet explain."
+      ],
+      "chapters": [
+        "00:00 Who was Bernhard Riemann?",
+        "01:00 Why primes matter",
+        "02:39 Euclid’s proof that primes never run out",
+        "04:08 Gauss and the odds of a prime",
+        "05:22 The staircase, the wobble and the zeta function",
+        "07:51 Zeros and the critical line",
+        "10:51 Trivial zeros and the critical strip",
+        "12:26 Why a trillion checked zeros isn’t proof",
+        "13:47 The proof announcement",
+        "15:12 How the proof works",
+        "16:51 The other Millennium Prize problems",
+        "18:56 From 40% of zeros to all of them",
+        "20:27 What comes next"
+      ],
+      "made": [
+        "I recorded a conversation about the Riemann Hypothesis with Claude in voice mode. That gave me three files: my microphone, Claude’s voice track, and a camera. I pointed Claude Fable 5.2 at the folder, gave it a Linux sandbox, and asked for a finished episode. I never opened an editor. My whole contribution was notes like “my voice sounds reverby.”",
+        "The interesting constraint is that the model can’t listen to audio or watch video. Everything was done by measurement, transcription and looking at still frames. It lined up the three recordings with GCC-PHAT cross-correlation. The camera’s own audio trailed the mic by 2,295 samples, so the final mix is delayed 40 ms for lip sync. I had clipped my mic, so Claude wrote a least-squares autoregressive declipper and rebuilt 573 of 638 clipped regions. Its own voice bleeding into my mic came out with an STFT Wiener filter that uses its clean track as the reference. The room came out with WPE dereverberation (nara_wpe). Each speaking turn was then leveled to -19 LUFS so the two voices match.",
+        "One of Claude’s lines was rewritten by rearranging words it had actually said. Claude found word boundaries by running a local Whisper model over candidate cut points and checking for energy dips, then removed exactly 63 frames. Instead of a jump cut, the camera runs 10% fast for 21 seconds to absorb the gap. Partway through recording I told Claude a proof had been announced after its training cutoff. It looked it up live, and that part is unedited.",
+        "The visuals are a single HTML canvas page that exposes `render(t)`. Headless Chromium screenshots it frame by frame, Python composites the camera in, and the frames pipe straight into x264. That’s 40,127 frames, rendered in 30-second chunks and joined without re-encoding. The math on screen is computed, not drawn: the zeta zeros come from mpmath, and the prime-counting staircase is corrected one zero at a time with the explicit formula.",
+        "A few things went wrong. The first sync pass locked onto a false peak at zero lag until Claude added a Hann taper. ffmpeg’s declipper found nothing on my clipped mic, because lossy encoding had rounded off the flat tops. The explicit-formula sum drifted numerically until it was reformulated with a smooth cutoff. The first master over-compressed my voice. The first encode had a green tint from a color-matrix mismatch. And in the episode Claude says 165 years when it’s 167."
+      ]
+    }
+  ]
+}

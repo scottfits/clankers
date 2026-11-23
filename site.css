@@ -1,0 +1,108 @@
+:root{
+  /* Light papyrus, dark ink, one ochre accent. Faint crossed fibers in the background, like a sheet of papyrus.
+     Layout: one narrow left-aligned column, like a personal page.
+     The home page and every episode page share this file. */
+  --ground:#f4ecd8;
+  --raised:#ece1c6;
+  --hover:#e4d7b8;
+  --line:#d9ccab;
+  --text:#2a241c;
+  --body:#4a4234;
+  --muted:#7b705d;
+  --gold:#8f530a;
+  --display:'Playfair Display','Iowan Old Style',Georgia,serif;
+  --sans:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  color-scheme:light;
+}
+*,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--ground) repeating-linear-gradient(0deg,rgba(122,92,40,.045) 0 1px,transparent 1px 5px),repeating-linear-gradient(90deg,rgba(122,92,40,.03) 0 1px,transparent 1px 9px);background-color:var(--ground);color:var(--body);font-family:var(--sans);font-size:1.0625rem;line-height:1.65;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:4px}
+.wrap{max-width:800px;margin-inline:auto;padding-inline:clamp(20px,5vw,40px)}
+h1,h2,h3,p,ol{margin:0}
+h2{font-family:var(--sans);font-weight:800;color:var(--text);font-size:clamp(1.5rem,3.6vw,2rem);line-height:1.15;letter-spacing:-0.02em;text-wrap:balance}
+
+.top{display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-block:22px}
+.site{font-weight:800;color:var(--text);text-decoration:none}
+.top nav{display:flex;gap:24px;flex-wrap:wrap}
+.top nav a{text-decoration:none;font-size:.9375rem}
+.top nav a:hover{color:var(--text)}
+
+.hero{padding-top:clamp(24px,5vw,56px);display:flex;flex-direction:column;gap:22px}
+.hero h1{display:flex;flex-direction:column;color:var(--text)}
+.h1-pre{font-family:var(--sans);font-weight:800;font-size:clamp(1.375rem,3.8vw,2.25rem);letter-spacing:-0.02em;line-height:1.1}
+.h1-word{font-family:var(--display);font-style:italic;font-weight:800;color:var(--gold);font-size:clamp(4rem,17vw,8.75rem);line-height:.95;letter-spacing:-0.02em;margin-left:-0.04em;padding-bottom:.06em}
+.lede{font-size:clamp(1.125rem,2.1vw,1.3125rem);line-height:1.5;color:var(--text);max-width:40ch}
+
+.links{display:flex;flex-wrap:wrap;gap:8px 26px}
+.links a,.ep-page a,.back a{color:var(--gold);font-weight:600;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:5px}
+.links a:hover,.ep-page a:hover,.back a:hover{color:var(--text)}
+
+.stair{margin-top:22px}
+.stair canvas{display:block;width:100%;aspect-ratio:16/8;min-height:240px}
+.dial{display:flex;flex-direction:column;gap:6px;margin-top:10px}
+.dial-row{display:flex;align-items:baseline;justify-content:space-between;gap:12px}
+.dial label{color:var(--text);font-weight:600;font-size:.9375rem}
+.dial output{color:var(--gold);font-weight:800;font-variant-numeric:tabular-nums}
+.stair-note{margin-top:16px;max-width:60ch}
+.stair-note small{display:block;margin-top:8px;color:var(--muted);font-size:.875rem}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:28px;margin:0;background:transparent;cursor:pointer;--p:20%}
+input[type=range]::-webkit-slider-runnable-track{height:3px;border-radius:3px;background:linear-gradient(to right,var(--gold) var(--p),var(--line) var(--p))}
+input[type=range]::-moz-range-track{height:3px;border-radius:3px;background:var(--line)}
+input[type=range]::-moz-range-progress{height:3px;border-radius:3px;background:var(--gold)}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;margin-top:-8.5px;border-radius:50%;background:var(--gold);border:3px solid var(--ground);box-shadow:0 0 0 1px var(--gold)}
+input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:var(--gold);border:3px solid var(--ground);box-shadow:0 0 0 1px var(--gold)}
+
+.block{margin-top:clamp(64px,9vw,104px)}
+#episodes > .block:first-child{margin-top:clamp(44px,7vw,72px)}
+#episodes > .ep{margin-top:26px}
+#episodes > .ep + .ep{margin-top:36px;padding-top:36px;border-top:1px solid var(--line)}
+.ep-title{font-family:var(--sans);font-weight:800;color:var(--text);font-size:clamp(1.25rem,3vw,1.625rem);line-height:1.2;letter-spacing:-0.015em;text-wrap:balance}
+.ep-title a{text-decoration:none}
+.ep-title a:hover{color:var(--gold)}
+.ep-preview{margin-top:18px;max-width:62ch;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;line-clamp:2;overflow:hidden}
+.more{margin-top:10px}
+.more summary{cursor:pointer;color:var(--gold);font-weight:600;width:max-content}
+.more summary:hover{color:var(--text)}
+.more .ep-copy{margin-top:22px}
+.ep-page{margin-top:22px}
+audio{display:block;width:100%;margin-top:22px}
+.ep-meta{color:var(--muted);margin-top:8px;font-size:.9375rem}
+.ep-box{display:grid;grid-template-columns:1fr 1fr;gap:1px;margin-top:14px;border:1px solid var(--line);border-radius:10px;background:var(--line);overflow:hidden}
+.ep-box a{display:flex;align-items:center;justify-content:center;gap:10px;min-height:60px;padding:14px 18px;background:var(--raised);color:var(--gold);font-weight:600;text-decoration:none;text-align:center}
+/* an odd one out at the end takes the whole row, so the box never has an empty cell */
+.ep-box a:last-child:nth-child(odd){grid-column:1 / -1}
+.ep-box .ico{display:inline-flex;flex:none}
+.ep-box svg{width:20px;height:20px;display:block}
+.ep-box img{height:24px;width:auto;max-width:80px;display:block;border-radius:4px;flex:none}
+.ep-box a:hover{background:var(--hover);color:var(--text)}
+.ep-box a:focus-visible{outline-offset:-4px}
+.ep-copy{display:flex;flex-direction:column;gap:16px;max-width:62ch;margin-top:32px}
+.player{display:block;width:100%;aspect-ratio:16/9;border:0;border-radius:8px;background:var(--raised) center/cover no-repeat;margin-top:22px;cursor:pointer;position:relative;padding:0}
+a.player::after{content:"";position:absolute;left:50%;top:50%;width:0;height:0;border-style:solid;border-width:18px 0 18px 30px;border-color:transparent transparent transparent var(--gold);transform:translate(-40%,-50%)}
+.chapters{list-style:none;padding:0;margin-top:28px;max-width:62ch}
+.chapters li{border-top:1px solid var(--line)}
+.chapters li:last-child{border-bottom:1px solid var(--line)}
+.chapters a{display:grid;grid-template-columns:3.6em 1fr;gap:12px;padding:10px 0;text-decoration:none;font-size:.9375rem;line-height:1.4}
+.chapters a[href]:hover span{color:var(--text)}
+.chapters time{color:var(--gold);font-variant-numeric:tabular-nums;font-weight:600}
+
+.about-copy{display:flex;flex-direction:column;gap:16px;max-width:60ch;margin-top:18px}
+.sub .links{margin-top:18px}
+footer{margin-top:clamp(64px,9vw,104px);border-top:1px solid var(--line);padding-block:22px;color:var(--muted);font-size:.875rem}
+
+/* An episode's own page: the video first, then whatever was made for it, then the chapters and links. */
+.page-head{padding-top:clamp(20px,4vw,44px)}
+.page-head h1{font-family:var(--sans);font-weight:800;color:var(--text);font-size:clamp(1.875rem,5.6vw,3rem);line-height:1.08;letter-spacing:-0.025em;text-wrap:balance}
+.page .block{margin-top:clamp(48px,7vw,76px)}
+.page .stair{margin-top:34px}
+.page .ep-box{margin-top:18px}
+.copy{display:flex;flex-direction:column;gap:16px;max-width:62ch;margin-top:18px}
+.back{max-width:62ch;margin-top:28px}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.9em;background:var(--raised);border:1px solid var(--line);border-radius:4px;padding:.08em .35em}
+
+@media (max-width:520px){.stair canvas{aspect-ratio:4/3}}
+@media (max-width:460px){.ep-box{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}

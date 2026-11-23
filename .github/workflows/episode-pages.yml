@@ -1,0 +1,39 @@
+# Gives each new episode its own page. Every four hours this reads the podcast feed and the YouTube
+# playlist, runs build.mjs, and commits whatever changed. Render publishes the commit.
+# It also runs when show.json, build.mjs or extras/ change, and from the "Run workflow" button.
+name: Episode pages
+
+on:
+  schedule:
+    - cron: '23 */4 * * *'
+  push:
+    branches: [master]
+    paths: ['show.json', 'build.mjs', 'extras/**']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: episode-pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v7
+      - run: node build.mjs
+      - name: Commit what changed
+        run: |
+          git add -A
+          if git diff --cached --quiet; then
+            echo "Nothing new."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Update episode pages from the feed"
+          git pull --rebase
+          git push
