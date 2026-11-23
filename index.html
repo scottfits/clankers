@@ -44,7 +44,7 @@ body{margin:0;background:var(--ground) repeating-linear-gradient(0deg,rgba(122,9
 a{color:inherit}
 :focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:4px}
 .wrap{max-width:800px;margin-inline:auto;padding-inline:clamp(20px,5vw,40px)}
-h1,h2,p,ol{margin:0}
+h1,h2,h3,p,ol{margin:0}
 h2{font-family:var(--sans);font-weight:800;color:var(--text);font-size:clamp(1.5rem,3.6vw,2rem);line-height:1.15;letter-spacing:-0.02em;text-wrap:balance}
 
 .top{display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-block:22px}
@@ -80,14 +80,20 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;bac
 
 .block{margin-top:clamp(64px,9vw,104px)}
 #episodes > .block:first-child{margin-top:clamp(44px,7vw,72px)}
-#episodes > .ep + .ep{padding-top:clamp(40px,6vw,64px);border-top:1px solid var(--line)}
+#episodes > .ep{margin-top:26px}
+#episodes > .ep + .ep{margin-top:36px;padding-top:36px;border-top:1px solid var(--line)}
+.ep-title{font-family:var(--sans);font-weight:800;color:var(--text);font-size:clamp(1.25rem,3vw,1.625rem);line-height:1.2;letter-spacing:-0.015em;text-wrap:balance}
+.ep-preview{margin-top:18px;max-width:62ch;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;line-clamp:2;overflow:hidden}
+.more{margin-top:10px}
+.more summary{cursor:pointer;color:var(--gold);font-weight:600;width:max-content}
+.more summary:hover{color:var(--text)}
+.more .ep-copy{margin-top:22px}
 audio{display:block;width:100%;margin-top:22px}
-.notes{margin-top:22px}
-.notes summary{cursor:pointer;color:var(--gold);font-weight:600;width:max-content}
-.notes .ep-copy{margin-top:16px}
 .ep-meta{color:var(--muted);margin-top:8px;font-size:.9375rem}
-.ep-box{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1px;margin-top:14px;border:1px solid var(--line);border-radius:10px;background:var(--line);overflow:hidden}
+.ep-box{display:grid;grid-template-columns:1fr 1fr;gap:1px;margin-top:14px;border:1px solid var(--line);border-radius:10px;background:var(--line);overflow:hidden}
 .ep-box a{display:flex;align-items:center;justify-content:center;gap:10px;min-height:60px;padding:14px 18px;background:var(--raised);color:var(--gold);font-weight:600;text-decoration:none;text-align:center}
+/* an odd one out at the end takes the whole row, so the box never has an empty cell */
+.ep-box a:last-child:nth-child(odd){grid-column:1 / -1}
 .ep-box .ico{display:inline-flex;flex:none}
 .ep-box svg{width:20px;height:20px;display:block}
 .ep-box img{height:24px;width:auto;max-width:80px;display:block;border-radius:4px;flex:none}
@@ -107,6 +113,7 @@ a.player::after{content:"";position:absolute;left:50%;top:50%;width:0;height:0;b
 .sub .links{margin-top:18px}
 footer{margin-top:clamp(64px,9vw,104px);border-top:1px solid var(--line);padding-block:22px;color:var(--muted);font-size:.875rem}
 @media (max-width:520px){.stair canvas{aspect-ratio:4/3}}
+@media (max-width:460px){.ep-box{grid-template-columns:1fr}}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 </style>
 </head>
@@ -184,7 +191,7 @@ footer{margin-top:clamp(64px,9vw,104px);border-top:1px solid var(--line);padding
 // so a new episode shows up here as soon as it is in the feed.
 const FEED_URL = 'https://anchor.fm/s/11a757edc/podcast/rss';
 // Show pages. Any left empty are hidden.
-const LINKS = { youtube: '', spotify: 'https://podcasters.spotify.com/pod/show/scott-fitsimones', apple: '' };
+const LINKS = { youtube: 'https://www.youtube.com/watch?v=LGwXzYCNqXA&list=PLVyxrlZ6UNhM', spotify: 'https://podcasters.spotify.com/pod/show/scott-fitsimones', apple: 'https://podcasts.apple.com/us/podcast/conversations-with-clankers/id6837877027' };
 // Optional image files to use in place of the plain icons, e.g. { youtube: 'youtube.svg' }.
 const ICONS = {
   youtube: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQeo4XAt_JiEZxa98EXzyaDbr_qkDgzYVMc5qBg5hH-4w&s',
@@ -223,10 +230,13 @@ if (!document.querySelector('#watch a')) {
 var ICON_SVG = {
   youtube: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg>',
   spotify: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="3" y="14" width="4" height="6" rx="1.5"/><rect x="17" y="14" width="4" height="6" rx="1.5"/></svg>',
-  apple: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11.5a6.5 6.5 0 0 0 13 0M12 18v3"/></svg>'
+  apple: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11.5a6.5 6.5 0 0 0 13 0M12 18v3"/></svg>',
+  rss: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 11a8 8 0 0 1 8 8M5 5a14 14 0 0 1 14 14"/><circle cx="6" cy="18" r="1.6" fill="currentColor" stroke="none"/></svg>'
 };
 var stairNode = document.querySelector('#extras .stair');
-var framesBlocked = false;
+// YouTube only plays inside a page it can identify: a real web address, opened directly.
+// A file opened from disk, or a page shown inside another page's preview pane, gets the play box that links out instead.
+var framesBlocked = !(/^https?:$/.test(location.protocol) && window.top === window.self);
 
 function el(tag, props, kids) {
   var n = document.createElement(tag), k;
@@ -277,38 +287,50 @@ document.addEventListener('securitypolicyviolation', function (e) {
 
 function episodeSection(ep, i) {
   var sec = el('section', { class: 'wrap block ep', id: 'episode-' + (ep.number || 'x' + i) });
-  sec.appendChild(el('h2', { text: ep.title }));
+  sec.appendChild(el('h3', { class: 'ep-title', text: ep.title }));
 
   var meta = [ep.trailer ? 'Trailer' : (ep.number ? 'Episode ' + ep.number : '')];
-  if (ep.seconds) { var mins = Math.max(1, Math.round(ep.seconds / 60)); meta.push(mins + (mins === 1 ? ' minute' : ' minutes')); }
   var d = ep.date ? new Date(ep.date) : null;
   if (d && !isNaN(d)) meta.push(d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' }));
   sec.appendChild(el('p', { class: 'ep-meta', text: meta.filter(Boolean).join(', ') }));
 
-  if (ep.youtube) sec.appendChild(youtubePlayer(ep.youtube, ep.title));
-  else if (ep.audio) sec.appendChild(el('audio', { controls: '', preload: 'none', src: ep.audio }));
+  var player = ep.youtube ? youtubePlayer(ep.youtube, ep.title)
+    : (ep.audio ? el('audio', { controls: '', preload: 'none', src: ep.audio }) : null);
+  // The newest episode keeps its player in view. Older ones show it once opened.
+  if (i === 0 && player) sec.appendChild(player);
 
   var box = el('div', { class: 'ep-box' });
   if (ep.youtube) box.appendChild(boxLink('youtube', 'https://www.youtube.com/watch?v=' + ep.youtube, 'Watch on YouTube'));
   if (ep.spotify) box.appendChild(boxLink('spotify', ep.spotify, 'Listen on Spotify'));
   else if (ep.link) box.appendChild(boxLink('spotify', ep.link, /spotify/.test(ep.link) ? 'Listen on Spotify' : 'Listen'));
   if (LINKS.apple) box.appendChild(boxLink('apple', LINKS.apple, 'Apple Podcasts'));
+  if (FEED_URL) box.appendChild(boxLink('rss', FEED_URL, 'RSS feed'));
   if (box.children.length) sec.appendChild(box);
 
-  // Things made by hand for one episode travel with it, wherever it sits in the list.
-  if (stairNode && /riemann/i.test(ep.title)) sec.appendChild(stairNode);
+  // Short version: the first couple of lines. The rest opens underneath.
+  var paras = ep.paragraphs || [];
+  var preview = paras.length ? el('p', { class: 'ep-preview', text: paras[0] }) : null;
+  if (preview) sec.appendChild(preview);
 
-  var copy = el('div', { class: 'ep-copy' }, (ep.paragraphs || []).map(function (p) { return el('p', { text: p }); }));
-  var chapters = null;
+  var more = el('details', { class: 'more' }, [el('summary', { text: 'Show more' })]);
+  if (i > 0 && player) more.appendChild(player);
+  // Things made by hand for one episode travel with it, wherever it sits in the list.
+  if (stairNode && /riemann/i.test(ep.title)) more.appendChild(stairNode);
+  if (paras.length) more.appendChild(el('div', { class: 'ep-copy' }, paras.map(function (p) { return el('p', { text: p }); })));
   if (ep.chapters && ep.chapters.length) {
-    chapters = el('ol', { class: 'chapters' }, ep.chapters.map(function (c) {
+    more.appendChild(el('ol', { class: 'chapters' }, ep.chapters.map(function (c) {
       var a = el('a', {}, [el('time', { text: clock(c[0]) }), el('span', { text: c[1] })]);
       if (ep.youtube) { a.href = 'https://www.youtube.com/watch?v=' + ep.youtube + '&t=' + c[0] + 's'; a.rel = 'noopener'; }
       return el('li', {}, [a]);
-    }));
+    })));
   }
-  if (i === 0) { sec.appendChild(copy); if (chapters) sec.appendChild(chapters); }
-  else sec.appendChild(el('details', { class: 'notes' }, [el('summary', { text: chapters ? 'Show notes and chapters' : 'Show notes' }), copy, chapters]));
+  if (more.children.length > 1) {
+    more.addEventListener('toggle', function () {
+      more.firstChild.textContent = more.open ? 'Show less' : 'Show more';
+      if (preview) preview.hidden = more.open;
+    });
+    sec.appendChild(more);
+  }
   return sec;
 }
 
@@ -316,6 +338,7 @@ function showEpisodes(list) {
   var root = document.getElementById('episodes');
   var secs = list.map(episodeSection);
   while (root.firstChild) root.removeChild(root.firstChild);
+  root.appendChild(el('div', { class: 'wrap block' }, [el('h2', { text: 'Latest Episodes' })]));
   secs.forEach(function (x) { root.appendChild(x); });
 }
 
