@@ -19,7 +19,8 @@
 //   spotify     the episode's open.spotify.com link.
 //   chapters    ["00:00 Title", ...]. Copied once from the YouTube description. Delete them to copy again.
 //   paragraphs  the description. Leave it out to use the one in the feed.
-//   made        paragraphs for a "How it was made" section. Backticks make `code`.
+//   made        paragraphs for a "How it was made" section. Backticks make `code`, and
+//               [some words](https://...) make a link.
 //   extra       something hand-made for the episode, from extras/<name>.js, shown under the video.
 // Anything written in show.json is used in place of what the feeds say. Title, date and audio always
 // come from the podcast feed.
@@ -36,7 +37,9 @@ const MARK = '<meta name="generator" content="build.mjs">';
 
 /* ---- Small helpers ---- */
 const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-const rich = s => esc(s).replace(/`([^`]+)`/g, '<code>$1</code>');
+// Hand-written text can carry `code` and [a link](https://example.com).
+const rich = s => esc(s).replace(/`([^`]+)`/g, '<code>$1</code>')
+  .replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, '<a href="$2" rel="noopener">$1</a>');
 const key = t => (t || '').toLowerCase().replace(/[^a-z0-9]+/g, '');
 const safeUrl = u => (/^https?:\/\//i.test(u || '') ? u : '');
 const sleep = ms => new Promise(r => setTimeout(r, ms));
@@ -227,7 +230,7 @@ function page(ep, show) {
     <div data-extra="${ep.extra}"></div>
   </section>`);
   if (ep.made.length) sections.push(`  <section class="wrap block" id="made">
-    <h2>How it was made</h2>
+    <h2 id="how">How it was made</h2>
     <div class="copy">
 ${ep.made.map(p => `      <p>${rich(p)}</p>`).join('\n')}
     </div>

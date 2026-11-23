@@ -99,6 +99,9 @@ footer{margin-top:clamp(64px,9vw,104px);border-top:1px solid var(--line);padding
 .page .stair{margin-top:34px}
 .page .ep-box{margin-top:18px}
 .copy{display:flex;flex-direction:column;gap:16px;max-width:62ch;margin-top:18px}
+.copy a{color:var(--gold);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
+.copy a:hover{color:var(--text)}
+.page section[id],.page h2[id]{scroll-margin-top:24px}
 .back{max-width:62ch;margin-top:28px}
 code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.9em;background:var(--raised);border:1px solid var(--line);border-radius:4px;padding:.08em .35em}
 
