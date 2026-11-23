@@ -37,9 +37,9 @@ const MARK = '<meta name="generator" content="build.mjs">';
 
 /* ---- Small helpers ---- */
 const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-// Hand-written text can carry `code` and [a link](https://example.com).
+// Hand-written text can carry `code` and [a link](https://example.com). Links open in a new tab.
 const rich = s => esc(s).replace(/`([^`]+)`/g, '<code>$1</code>')
-  .replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, '<a href="$2" rel="noopener">$1</a>');
+  .replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
 const key = t => (t || '').toLowerCase().replace(/[^a-z0-9]+/g, '');
 const safeUrl = u => (/^https?:\/\//i.test(u || '') ? u : '');
 const sleep = ms => new Promise(r => setTimeout(r, ms));
