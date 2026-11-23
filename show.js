@@ -7,7 +7,7 @@ window.SHOW = {
   "apple": "https://podcasts.apple.com/us/podcast/conversations-with-clankers/id6837877027"
  },
  "icons": {
-  "youtube": "",
+  "youtube": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQC7rRv5p0NHqBDRbnfLOfLYY5CWXgtfZTod1D2wX4ZEw&s=10",
   "spotify": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQz-pzrJrHHHCJ1LSek991YTxYQfEbeB3NjCV6nx--Hdw&s=10",
   "apple": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQeo4XAt_JiEZxa98EXzyaDbr_qkDgzYVMc5qBg5hH-4w&s"
  },

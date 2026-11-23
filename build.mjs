@@ -160,14 +160,18 @@ const PAGE_SCRIPT = `
     frame.allowFullscreen = true;
     frame.referrerPolicy = 'strict-origin-when-cross-origin';
     frame.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
-    frame.src = YT + '/embed/' + facade.dataset.yt + '?enablejsapi=1&origin=' + encodeURIComponent(location.origin);
+    // The video starts on its own, muted, because browsers don't let a page start sound. It stays still for
+    // anyone who has asked their device for less motion.
+    var still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    frame.src = YT + '/embed/' + facade.dataset.yt + '?enablejsapi=1&playsinline=1' + (still ? '' : '&autoplay=1&mute=1') +
+      '&origin=' + encodeURIComponent(location.origin);
     facade.replaceWith(frame);
     document.addEventListener('securitypolicyviolation', function (e) {
       if (frame && /youtube/.test(e.blockedURI || '')) { frame.replaceWith(facade); frame = null; }
     });
   }
 
-  // A chapter moves the player on this page to that moment and starts it.
+  // A chapter moves the player on this page to that moment and starts it, with the sound on.
   var audio = document.querySelector('audio');
   function tell(func, args) { frame.contentWindow.postMessage(JSON.stringify({ event: 'command', func: func, args: args }), YT); }
   document.querySelectorAll('.chapters a').forEach(function (a) {
@@ -176,7 +180,7 @@ const PAGE_SCRIPT = `
       var t = +a.dataset.t, player = frame || audio;
       if (!player) return;
       e.preventDefault();
-      if (frame) { tell('seekTo', [t, true]); tell('playVideo', []); }
+      if (frame) { tell('seekTo', [t, true]); tell('unMute', []); tell('playVideo', []); }
       else { audio.currentTime = t; audio.play(); }
       player.scrollIntoView({ behavior: 'smooth', block: 'center' });
     });
