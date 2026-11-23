@@ -31,9 +31,7 @@
         '<div class="dial-row"><label for="zeros">Zeros of the zeta function</label><output id="zeros-out" for="zeros">0</output></div>' +
         '<input type="range" id="zeros" min="0" max="150" step="1" value="0">' +
       '</div>' +
-      '<p class="stair-note">This is the idea the episode builds up to. The thin staircase goes up a step at every prime. The heavy line is a guess at it. Drag the slider to add zeros of the zeta function and the guess turns into the staircase.' +
-        '<small>For the careful: this is Chebyshev&rsquo;s &psi;(x), so powers of primes like 4, 8 and 9 get a step too.</small>' +
-      '</p>';
+      '<p class="stair-note">This is the idea the episode builds up to. The thin staircase goes up a step at every prime. The heavy line is a guess at it. Drag the slider to add zeros of the zeta function and the guess turns into the staircase.</p>';
 
     var cv = root.querySelector('canvas'), ctx = cv.getContext('2d');
     var slider = root.querySelector('input'), out = root.querySelector('output');
