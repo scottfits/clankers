@@ -13,6 +13,94 @@ window.SHOW = {
  },
  "episodes": [
   {
+   "slug": "pvsnp",
+   "number": 2,
+   "trailer": false,
+   "title": "Are We Closer to Solving P vs NP?",
+   "date": "2026-11-24T17:09:10.000Z",
+   "guid": "bdeb1301-4f46-402f-9412-fd49537fadb6",
+   "youtube": "coQ16_MqK_Y",
+   "spotify": "https://open.spotify.com/episode/7Eru9Z7D7HIUO5GNGmOxRb",
+   "link": "https://podcasters.spotify.com/pod/show/scott-fitsimones/episodes/Are-We-Closer-to-Solving-P-vs-NP-e3suqm9",
+   "audio": "https://anchor.fm/s/11a757edc/podcast/play/130033801/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-10-24%2F437527253-44100-2-86dce9fc43e5f8.mp3",
+   "paragraphs": [
+    "What is P vs NP, and why does it matter? I asked Claude to teach it to me from scratch, a few hours after Anthropic posted a Claude-written proof of VP ≠ VNP, the algebraic cousin of the problem.",
+    "We start with why checking a Sudoku is easy and solving one is not, then go through what P and NP mean, Gödel’s 1956 letter to von Neumann, how Cook and Karp showed that Sudoku, routing and scheduling are the same problem in disguise, and what would change if P equaled NP. We end on the Millennium Prize scoreboard and whether AI needs a proof at all. Animated throughout."
+   ],
+   "chapters": [
+    [
+     0,
+     "How computer scientists measure hard problems"
+    ],
+    [
+     81,
+     "Checking a Sudoku vs solving one"
+    ],
+    [
+     164,
+     "Writing a program to solve Sudoku"
+    ],
+    [
+     228,
+     "What P and NP mean"
+    ],
+    [
+     327,
+     "Why P = NP is even possible"
+    ],
+    [
+     373,
+     "What breaks if P = NP"
+    ],
+    [
+     500,
+     "Gödel’s letter to von Neumann"
+    ],
+    [
+     572,
+     "Cook, Karp and the master key"
+    ],
+    [
+     627,
+     "How every hard problem turns into the same one"
+    ],
+    [
+     722,
+     "A world where P = NP"
+    ],
+    [
+     806,
+     "Claude’s claimed VP ≠ VNP proof"
+    ],
+    [
+     899,
+     "VP vs VNP: determinant and permanent"
+    ],
+    [
+     979,
+     "The Millennium Prize scoreboard"
+    ],
+    [
+     1096,
+     "AlphaFold and good guesses"
+    ],
+    [
+     1152,
+     "Can neural networks skip the problem?"
+    ],
+    [
+     1219,
+     "Would AGI crack a hard Sudoku?"
+    ],
+    [
+     1274,
+     "Wrap"
+    ]
+   ],
+   "extra": "",
+   "made": false
+  },
+  {
    "slug": "riemann",
    "number": 1,
    "trailer": false,

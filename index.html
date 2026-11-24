@@ -257,6 +257,7 @@ function parseFeed(xml) {
     var html = tx(it, 'content:encoded') || tx(it, 'description');
     var enc = it.getElementsByTagName('enclosure')[0];
     var ep = {
+      guid: tx(it, 'guid'),
       title: tx(it, 'title'),
       date: tx(it, 'pubDate'),
       seconds: toSeconds(tx(it, 'itunes:duration')),
@@ -282,6 +283,14 @@ function parseFeed(xml) {
     if (!ep.chapters.length && b.chapters) ep.chapters = b.chapters;
     return ep;
   }).filter(function (ep) { return ep.title; });
+
+  // The feed comes through a cache that can hand back the copy from before the newest episode went up.
+  // A copy put together before an episode came out, and missing it, is not used: the list on the page stays.
+  var built = Date.parse(tx(doc, 'lastBuildDate'));
+  var old = BUILT_IN.some(function (b) {
+    return b.guid && built < Date.parse(b.date || '') && !eps.some(function (e) { return e.guid === b.guid; });
+  });
+  if (old) throw new Error('The feed is a copy from before the newest episode came out');
 
   eps.sort(function (a, b) { return new Date(b.date) - new Date(a.date); });
   var n = 0;

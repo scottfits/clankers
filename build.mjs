@@ -10,11 +10,12 @@
 // It writes:
 //   <slug>/index.html   one page per episode in the feed
 //   show.js             the same settings and episodes, for the home page to load
-//   show.json           only to add what it found: a new episode, its video id, its chapters
+//   show.json           only to add what it found: a new episode, its date, its video id, its chapters
 //
 // show.json is the file to edit by hand. Each episode there can have:
 //   slug        its address. "riemann" gives clankers.fm/riemann. A new episode gets one made from its
 //               title; shorten it before you share the link, because the old address stops working.
+//   date        when it came out. Written by this script from the feed; there is no need to set it.
 //   youtube     the video id. Found in the playlist by matching the title. Set it here if that misses.
 //   spotify     the episode's open.spotify.com link.
 //   chapters    ["00:00 Title", ...]. Copied once from the YouTube description. Delete them to copy again.
@@ -24,6 +25,7 @@
 //   extra       something hand-made for the episode, from extras/<name>.js, shown under the video.
 // Anything written in show.json is used in place of what the feeds say. Title, date and audio always
 // come from the podcast feed.
+// The script also keeps each episode's "date" there, to tell when the feed it was handed is an old copy.
 
 import { readFile, writeFile, mkdir, readdir, rm } from 'node:fs/promises';
 import { existsSync, readFileSync } from 'node:fs';
@@ -123,6 +125,23 @@ function parsePodcast(xml) {
       ...readText(linesOfHtml(html))
     };
   }).filter(ep => ep.title);
+}
+// The feed comes through a cache. For a while after an episode goes up, the cache can still hand back the copy
+// from before, and that copy would take the new episode's page down. A copy put together before an episode
+// came out can't be the one that removed it, so it is asked for again. If that is all there is, the script
+// stops and every page stays up. `known` is the episodes in show.json.
+async function readFeed(url, known) {
+  for (let attempt = 1; ; attempt++) {
+    const xml = await get(url);
+    const items = parsePodcast(xml);
+    const built = Date.parse(tag(xml, 'lastBuildDate'));
+    const lost = known.find(n => n.guid && built < Date.parse(n.date || '') && !items.some(f => f.guid === n.guid));
+    if (!lost) return items;
+    const what = `The feed came back as a copy from before "${lost.title}" came out`;
+    if (attempt >= 4) throw new Error(`${what}, ${attempt} times. Nothing was changed.`);
+    console.warn(`${what}. Asking again.`);
+    await sleep(5000 * attempt);
+  }
 }
 function parsePlaylist(xml) {
   return [...xml.matchAll(/<entry>([\s\S]*?)<\/entry>/g)].map(([, e]) => ({
@@ -320,7 +339,7 @@ const show = JSON.parse(showBefore);
 const notes = (show.episodes ||= []);
 if (!show.feed) throw new Error('show.json has no "feed".');
 
-const feed = parsePodcast(await get(show.feed)).sort((a, b) => new Date(a.date) - new Date(b.date));
+const feed = (await readFeed(show.feed, notes)).sort((a, b) => new Date(a.date) - new Date(b.date));
 // An empty feed is a broken feed. Stopping here keeps every page that is already up.
 if (!feed.length) throw new Error('The feed has no episodes. Nothing was changed.');
 
@@ -359,6 +378,7 @@ for (const f of feed) {
   }
   if (!n.number && !f.trailer) n.number = f.number || Math.max(0, ...notes.map(x => x.number || 0)) + 1;
   n.title = f.title;
+  if (f.date) n.date = f.date;
   if (f.guid) n.guid = f.guid;
 
   const video = videos.find(v => key(v.title) === k)
