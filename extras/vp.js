@@ -364,7 +364,7 @@
     });
   }
 
-  /* ---- Circuits: a formula drawn as the additions and multiplications it takes ---- */
+  /* ---- Circuits: an equation drawn as the additions and multiplications it takes ---- */
   function wire(g, a, b, p) { g.fade(p, function () { g.line(a[0], a[1] - 14, b[0], b[1] + 14, g.ink(.35), 1.25); }); }
   function gate(g, at, sign, p) {
     g.fade(p, function () {
@@ -453,10 +453,10 @@
       }
     },
 
-    // One formula, built two ways.
+    // One equation, built two ways.
     price: {
       len: 5.2, high: 310,
-      alt: 'Two diagrams that compute the same formula from a, b, c and d. The first adds a to b and c to d, then multiplies: 3 steps. The second multiplies four pairs and adds the results: 7 steps.',
+      alt: 'Two diagrams that compute the same equation from a, b, c and d. The first adds a to b and c to d, then multiplies: 3 steps. The second multiplies four pairs and adds the results: 7 steps.',
       draw: function (g, t) {
         var x0 = (g.w - 352) / 2, L = x0 + 75, R = x0 + 277, iy = 236;
         function ins(cx) { return [-60, -20, 20, 60].map(function (dx) { return [cx + dx, iy]; }); }
@@ -467,12 +467,12 @@
         var M = [-60, -20, 20, 60].map(function (dx) { return [R + dx, 182]; }), S1 = [R - 40, 128], S2 = [R + 40, 128], S3 = [R, 78];
         var right = [[M[0], '×', 2, [b[0], b[2]]], [M[1], '×', 2.3, [b[0], b[3]]], [M[2], '×', 2.6, [b[1], b[2]]], [M[3], '×', 2.9, [b[1], b[3]]],
           [S1, '+', 3.3, [M[0], M[1]]], [S2, '+', 3.6, [M[2], M[3]]], [S3, '+', 4, [S1, S2]]];
-        function circuit(gates, inputs, formula, cx) {
+        function circuit(gates, inputs, equation, cx) {
           var made = 0;
           gates.forEach(function (gt) { var p = g.part(t, gt[2], gt[2] + .3); if (p) made++; gt[3].forEach(function (from) { wire(g, from, gt[0], p); }); });
           inputs.forEach(function (at, i) { input(g, at, 'abcd'[i]); });
           gates.forEach(function (gt) { gate(g, gt[0], gt[1], g.part(t, gt[2], gt[2] + .3)); });
-          g.text(formula, cx, 26, { size: 13, mono: true, weight: 600, color: g.C.ink, align: 'center' });
+          g.text(equation, cx, 26, { size: 13, mono: true, weight: 600, color: g.C.ink, align: 'center' });
           g.text(count(made), cx, 284, { size: 17, weight: 800, color: g.C.gold, align: 'center' });
         }
         fit(g, 1.05, function () {

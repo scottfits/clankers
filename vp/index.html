@@ -4,14 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>VP vs VNP, explained with animations | Conversations with Clankers</title>
-<meta name="description" content="What VP vs VNP is and what it has to do with P vs NP, told through a chore chart and two formulas, the determinant and the permanent. With things to click.">
+<meta name="description" content="What VP vs VNP is and what it has to do with P vs NP, told through a chore chart and two equations, the determinant and the permanent. With things to click.">
 <!-- This page is written by hand. build.mjs doesn't make it and leaves it alone.
      The words are here. The pictures are in extras/vp.js, one for each <figure data-fig>. -->
 <meta name="theme-color" content="#f4ecd8">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Conversations with Clankers">
 <meta property="og:title" content="VP vs VNP, explained with animations">
-<meta property="og:description" content="What VP vs VNP is and what it has to do with P vs NP, told through a chore chart and two formulas.">
+<meta property="og:description" content="What VP vs VNP is and what it has to do with P vs NP, told through a chore chart and two equations.">
 <meta property="og:image" content="https://i.ytimg.com/vi/coQ16_MqK_Y/maxresdefault.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23f4ecd8'/%3E%3Ctext x='32' y='47' text-anchor='middle' font-family='Georgia,serif' font-style='italic' font-weight='700' font-size='46' fill='%238f530a'%3EC%3C/text%3E%3C/svg%3E">
@@ -35,21 +35,21 @@
 
   <section class="wrap page-head">
     <h1>VP vs VNP, and what it has to do with P vs NP</h1>
-    <p class="ep-meta">Goes with episode 2, <a href="#episode">Are We Closer to Solving P vs NP?</a> The video is at the bottom.</p>
+    <p class="ep-meta">Goes with episode 2, <a href="#episode">Are We Closer to Solving P vs NP?</a></p>
   </section>
 
   <article class="wrap story">
 
-    <p>In November 2026 Anthropic posted a proof, written by Claude, that VP ≠ VNP. I recorded an episode about P vs NP with Claude a few hours later, and we spent a few minutes of it on the new proof, <a href="https://www.youtube.com/watch?v=coQ16_MqK_Y&amp;t=806s" rel="noopener" data-t="806">starting at 13:26</a>. This page is those few minutes slowed down, with things you can click on.</p>
-    <p>The one-line version is that VP vs VNP is P vs NP for formulas. P vs NP asks whether every puzzle whose answer is quick to check is also quick to solve. VP vs VNP asks whether every formula that is easy to write down is also quick to work out. Most people who study this expect the answer to both to be no. Proving it is the hard part, and for VP vs VNP nobody had managed it in 47 years.</p>
-    <p>It all comes down to one formula, and the easiest way to meet it is a chore chart. Ana, Ben and Cal have to split the cooking, the dishes and the trash, one chore each. Ana refuses to take out the trash, and nobody wants to eat what Cal cooks. How many ways are there to hand the chores out?</p>
+    <p>In November 2026 Anthropic quietly dropped a proof in a <a href="https://github.com/anthropics/formal-math/tree/main/vp-vnp" rel="noopener">GitHub repo</a>, written by Claude, that VP ≠ VNP.</p>
+    <p>The one-line version is that VP vs VNP is P vs NP for equations that only use addition and multiplication. P vs NP asks whether every puzzle whose answer is quick to check is also quick to solve. VP vs VNP asks whether every equation that is easy to write down is also quick to work out. Most people who study this expect the answer to both to be no. Proving it is the hard part, and for VP vs VNP nobody had managed it in 47 years.</p>
+    <p>It all comes down to one equation, and the easiest way to meet it is a chore chart. Ana, Ben and Cal have to split the cooking, the dishes and the trash, one chore each. Ana refuses to take out the trash, and nobody wants to eat what Cal cooks. How many ways are there to hand the chores out?</p>
 
     <figure class="fig" data-fig="chores">
       <figcaption>Check or uncheck a box to change who can do what. Each small grid is one way to hand out the chores, and the gold ones work with the boxes as they are. Point at a small grid to see it on the chart.</figcaption>
     </figure>
 
     <p>There are six ways to give three people one chore each, and with the chart as it starts out, three of them work. I’ll call each of the six a <em>pick</em>: one box from each row, no two in the same column.</p>
-    <p>The same idea works with numbers in the boxes in place of check marks. Give each pick a score by multiplying its three numbers together, then add up the six scores. If a checked box is 1 and an empty one is 0, a pick scores 1 when it works and 0 when it doesn’t, so the total is the count you just saw. That total is called the <em>permanent</em> of the grid. The name goes back to Cauchy, in 1812.</p>
+    <p>The same idea works with numbers in the boxes in place of check marks. Give each pick a score by multiplying its three numbers together, then add up the six scores. If a checked box is 1 and an empty one is 0, a pick scores 1 when it works and 0 when it doesn’t, so the total is the count you just saw. That total is called the <em>permanent</em> of the grid (Cauchy 1812).</p>
 
     <h2>The same sum with minus signs</h2>
     <p>The permanent has a famous twin. You take the same six picks and multiply the same numbers, but before adding up you put a minus sign on half of them. In a 3 by 3 grid it is the three picks that slope down to the left. That total is the <em>determinant</em>, and if you ever took linear algebra you have worked out a few by hand.</p>
@@ -70,7 +70,7 @@
     <p>For a 20 by 20 grid this takes a few thousand steps, where adding up the picks would take quintillions. The method is old. A version of it is in a Chinese textbook from about two thousand years ago, and in Europe it ended up with Gauss’s name on it.</p>
 
     <h2>The permanent doesn’t</h2>
-    <p>The permanent is the same formula with the signs left off, so it ought to be the easier of the two. Here is the same trick tried on it.</p>
+    <p>The permanent is the same equation with the signs left off, so it ought to be the easier of the two. Here is the same trick tried on it.</p>
 
     <figure class="fig" data-fig="breaks">
       <figcaption>The same grid and the same first move. The determinant is still 4. The permanent was 208 and is now 48.</figcaption>
@@ -93,7 +93,7 @@
     <p>At 60 by 60 the determinant takes 72,000 steps. The permanent, done Ryser’s way, takes about two thousand years.</p>
 
     <h2>1979: a reason to think it’s hopeless</h2>
-    <p>For most of that time the permanent was just a formula that was annoying to compute. In 1979 Leslie Valiant showed it was more than that. He proved that the permanent can count the answers to any puzzle in NP: how many ways there are to fill in a Sudoku, how many schedules have no conflicts, how many routes come in under a given length. You turn the puzzle into a big grid of numbers by a fixed procedure, and the permanent of that grid gives you the count.</p>
+    <p>For most of that time the permanent was just an equation that was annoying to compute. In 1979 Leslie Valiant showed it was more than that. He proved that the permanent can count the answers to any puzzle in NP: how many ways there are to fill in a Sudoku, how many schedules have no conflicts, how many routes come in under a given length. You turn the puzzle into a big grid of numbers by a fixed procedure, and the permanent of that grid gives you the count.</p>
     <p>If you can count the answers, you know whether there are any. So a fast way to compute permanents would be a fast way to solve every puzzle in NP, and P would equal NP. Almost nobody thinks that is true.</p>
     <p>That is a good reason to believe the permanent is hard. It isn’t a proof, and proofs that no fast method exists are exactly what nobody knows how to write. So Valiant also set up a smaller version of the question, one where a proof looked more possible.</p>
 
@@ -101,19 +101,19 @@
     <p>His idea was to tie the computer’s hands. A real program can do what it likes with its input: compare numbers, branch, loop, pick apart individual digits. In Valiant’s version, the only things you may do with the numbers in the grid are add them and multiply them. What you end up with is a recipe, a list of additions and multiplications that finishes with the answer. Its cost is the number of steps in the list.</p>
 
     <figure class="fig" data-fig="price">
-      <figcaption>Two recipes for the same formula. The one on the left takes 3 steps and the one on the right takes 7.</figcaption>
+      <figcaption>Two recipes for the same equation. The one on the left takes 3 steps and the one on the right takes 7.</figcaption>
     </figure>
 
-    <p>The same formula can be cheap or expensive depending on the recipe, so the question is always about the cheapest recipe there is, whether or not anyone has found it.</p>
-    <p>Valiant sorted formulas into two classes, now called VP and VNP. The V is for Valiant.</p>
-    <p><strong>VP</strong> holds the formulas that have a cheap recipe, where cheap means the cost grows like n³ or n¹⁰ and not like 2ⁿ. The determinant is in VP.</p>
-    <p><strong>VNP</strong> holds the formulas you can write as a sum of an enormous number of terms, where each term on its own is cheap. The permanent is the standard example. It has one term for each pick, and each term is n numbers multiplied together.</p>
+    <p>The same equation can be cheap or expensive depending on the recipe, so the question is always about the cheapest recipe there is, whether or not anyone has found it.</p>
+    <p>Valiant sorted equations into two classes, now called VP and VNP. The V is for Valiant.</p>
+    <p><strong>VP</strong> holds the equations that have a cheap recipe, where cheap means the cost grows like n³ or n¹⁰ and not like 2ⁿ. The determinant is in VP.</p>
+    <p><strong>VNP</strong> holds the equations you can write as a sum of an enormous number of terms, where each term on its own is cheap. The permanent is the standard example. It has one term for each pick, and each term is n numbers multiplied together.</p>
 
     <figure class="fig" data-fig="classes">
       <figcaption>Everything in VP is also in VNP. The question is whether the permanent is in VP too.</figcaption>
     </figure>
 
-    <p>Valiant proved one more thing. The permanent is the hardest formula in VNP, in the same way that SAT, the “master key” puzzle in the episode, is the hardest puzzle in NP. A cheap recipe for the permanent could be turned into a cheap recipe for everything else in VNP. So the two classes are the same if the permanent has a cheap recipe, and different if it doesn’t.</p>
+    <p>Valiant proved one more thing. The permanent is the hardest equation in VNP, in the same way that SAT, the “master key” puzzle in the episode, is the hardest puzzle in NP. A cheap recipe for the permanent could be turned into a cheap recipe for everything else in VNP. So the two classes are the same if the permanent has a cheap recipe, and different if it doesn’t.</p>
     <p>VP ≠ VNP is the claim that it doesn’t. There is no cheap recipe for the permanent, and that includes any that nobody has thought of yet.</p>
 
     <h2>What this has to do with P vs NP</h2>
@@ -124,7 +124,7 @@
         <tr><td></td><th scope="col">P vs NP</th><th scope="col">VP vs VNP</th></tr>
       </thead>
       <tbody>
-        <tr><th scope="row">About</th><td>puzzles with yes-or-no answers</td><td>formulas</td></tr>
+        <tr><th scope="row">About</th><td>puzzles with yes-or-no answers</td><td>equations</td></tr>
         <tr><th scope="row">Allowed</th><td>any program</td><td>adding and multiplying</td></tr>
         <tr><th scope="row">Easy side</th><td>P: quick to solve</td><td>VP: has a cheap recipe</td></tr>
         <tr><th scope="row">Other side</th><td>NP: quick to check an answer</td><td>VNP: a huge sum of cheap terms</td></tr>
@@ -142,11 +142,12 @@
     </figure>
 
     <p>So if the proof is right, a question that has been open since 1979 is settled, and P vs NP is as open as it was the day before. The million-dollar prize is for P vs NP.</p>
-    <p>I’m calling it a claimed proof, which is also what we call it in the episode. A proof of something this big takes other people a while to check, and nothing here checks it. All this page does is explain what it claims: that the permanent, the formula that counts chore charts, has no cheap recipe.</p>
+    <p>I’m calling it a claimed proof, which is also what we call it in the episode. A proof of something this big takes other people a while to check, and nothing here checks it. All this page does is explain what it claims: that the permanent, the equation that counts chore charts, has no cheap recipe.</p>
 
     <h2 id="notes">Details I skipped</h2>
     <div class="notes">
-      <p>“Cheap” has an exact meaning. The number of steps has to grow no faster than some fixed power of n, the size of the grid. VP also asks for the degree of the formula to stay small in the same sense, which rules out things like squaring a number over and over.</p>
+      <p>What this page calls an equation, a mathematician would call a polynomial: the numbers in the grid combined by adding and multiplying.</p>
+      <p>“Cheap” has an exact meaning. The number of steps has to grow no faster than some fixed power of n, the size of the grid. VP also asks for the degree of the equation to stay small in the same sense, which rules out things like squaring a number over and over.</p>
       <p>Clearing rows uses division, and the add-and-multiply rules don’t allow it. Volker Strassen showed in 1973 that divisions can be taken out of a recipe at a modest cost, and there are other cheap recipes for the determinant that never divide.</p>
       <p>All of this is about number systems where 1 + 1 is not 0. Where it is 0, plus and minus are the same thing, the permanent is the determinant, and the permanent is easy.</p>
       <p>Pólya’s question has a grown-up version. Can the permanent of an n by n grid be written as the determinant of a larger grid, one that isn’t astronomically larger, filled in with the original numbers and some constants? VP ≠ VNP implies that it can’t.</p>
