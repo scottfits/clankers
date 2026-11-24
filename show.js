@@ -97,7 +97,9 @@ window.SHOW = {
      "Wrap"
     ]
    ],
-   "extra": "",
+   "extra": [
+    "pvsnp"
+   ],
    "made": false
   },
   {
@@ -170,7 +172,10 @@ window.SHOW = {
      "What comes next"
     ]
    ],
-   "extra": "zeta",
+   "extra": [
+    "riemann",
+    "zeta"
+   ],
    "made": true
   }
  ]

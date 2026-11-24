@@ -21,7 +21,10 @@
       "guid": "07d508b1-ecf7-4b2b-a6aa-bc5eddf4d036",
       "youtube": "LGwXzYCNqXA",
       "spotify": "https://open.spotify.com/episode/07jxZJI4zKL0TDijhHENnw",
-      "extra": "zeta",
+      "extra": [
+        "riemann",
+        "zeta"
+      ],
       "paragraphs": [
         "Why does the Riemann Hypothesis matter? I asked Claude the day after Anthropic mathematician Levent Alpöge released a proof of it, built with Claude, as 17 million lines of Lean code.",
         "We start with Riemann himself and build up from nothing: why primes matter, Euclid’s proof that they never run out, Gauss’s estimate of how they thin out, and how the zeros of the zeta function turn that estimate into the exact count.",
@@ -57,6 +60,9 @@
       "guid": "bdeb1301-4f46-402f-9412-fd49537fadb6",
       "youtube": "coQ16_MqK_Y",
       "spotify": "https://open.spotify.com/episode/7Eru9Z7D7HIUO5GNGmOxRb",
+      "extra": [
+        "pvsnp"
+      ],
       "paragraphs": [
         "What is P vs NP, and why does it matter? I asked Claude to teach it to me from scratch, a few hours after Anthropic posted a Claude-written proof of VP ≠ VNP, the algebraic cousin of the problem.",
         "We start with why checking a Sudoku is easy and solving one is not, then go through what P and NP mean, Gödel’s 1956 letter to von Neumann, how Cook and Karp showed that Sudoku, routing and scheduling are the same problem in disguise, and what would change if P equaled NP. We end on the Millennium Prize scoreboard and whether AI needs a proof at all. Animated throughout."

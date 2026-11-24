@@ -112,8 +112,9 @@ var ICON_SVG = {
   apple: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11.5a6.5 6.5 0 0 0 13 0M12 18v3"/></svg>',
   rss: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 11a8 8 0 0 1 8 8M5 5a14 14 0 0 1 14 14"/><circle cx="6" cy="18" r="1.6" fill="currentColor" stroke="none"/></svg>'
 };
-// Things made by hand for one episode, like the chart for the Riemann one. Each is a script in extras/ that
-// draws itself into the box made here. The box is kept, so it survives the list being rebuilt from the feed.
+// Things made by hand for one episode, like its walkthrough, or the chart for the Riemann one. Each is a script
+// in extras/ that draws itself into the box made here. The box is kept, so it survives the list being rebuilt
+// from the feed.
 var extraBoxes = {};
 function extraBox(name) {
   if (!/^[\w-]+$/.test(name || '')) return null;
@@ -206,7 +207,7 @@ function episodeSection(ep, i) {
   var more = el('details', { class: 'more' }, [el('summary', { text: 'Show more' })]);
   if (i > 0 && player) more.appendChild(player);
   // Things made by hand for one episode travel with it, wherever it sits in the list.
-  if (ep.extra) more.appendChild(extraBox(ep.extra));
+  [].concat(ep.extra || []).forEach(function (name) { var box = extraBox(name); if (box) more.appendChild(box); });
   if (paras.length) more.appendChild(el('div', { class: 'ep-copy' }, paras.map(function (p) { return el('p', { text: p }); })));
   if (ep.chapters && ep.chapters.length) {
     more.appendChild(el('ol', { class: 'chapters' }, ep.chapters.map(function (c) {

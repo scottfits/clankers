@@ -22,7 +22,9 @@
 //   paragraphs  the description. Leave it out to use the one in the feed.
 //   made        paragraphs for a "How it was made" section. Backticks make `code`, and
 //               [some words](https://...) make a link.
-//   extra       something hand-made for the episode, from extras/<name>.js, shown under the video.
+//   extra       things hand-made for the episode, shown under the video: one name, or a list of them in the
+//               order they should appear. Each is a script, extras/<name>.js. An episode's walkthrough is
+//               one of these, named after its slug. extras/walk.js says how to write one.
 // Anything written in show.json is used in place of what the feeds say. Title, date and audio always
 // come from the podcast feed.
 // The script also keeps each episode's "date" there, to tell when the feed it was handed is an old copy.
@@ -245,8 +247,8 @@ function page(ep, show) {
   };
 
   const sections = [];
-  if (ep.extra) sections.push(`  <section class="wrap">
-    <div data-extra="${ep.extra}"></div>
+  if (ep.extras.length) sections.push(`  <section class="wrap extras">
+${ep.extras.map(x => `    <div data-extra="${x}"></div>`).join('\n')}
   </section>`);
   if (ep.made.length) sections.push(`  <section class="wrap block" id="made">
     <h2 id="how">How it was made</h2>
@@ -325,8 +327,8 @@ ${sections.join('\n\n')}
 
 <script>
 ${PAGE_SCRIPT}
-</script>${ep.extra ? `
-<script src="../extras/${ep.extra}.js" defer></script>` : ''}
+</script>${ep.extras.map(x => `
+<script src="../extras/${x}.js" defer></script>`).join('')}
 </body>
 </html>
 `;
@@ -390,7 +392,8 @@ for (const f of feed) {
     if (found.length) n.chapters = found.map(([t, title]) => `${clock(t)} ${title}`);
   }
   if (n.youtube && !/^[\w-]{11}$/.test(n.youtube)) throw new Error(`"${n.youtube}" is not a YouTube video id (${f.title}).`);
-  if (n.extra && !(/^[\w-]+$/.test(n.extra) && existsSync(at('extras', n.extra + '.js')))) throw new Error(`There is no extras/${n.extra}.js (${f.title}).`);
+  const extras = [].concat(n.extra || []);
+  for (const x of extras) if (!(/^[\w-]+$/.test(x) && existsSync(at('extras', x + '.js')))) throw new Error(`There is no extras/${x}.js (${f.title}).`);
 
   episodes.push({
     slug: n.slug, number: n.number || 0, trailer: f.trailer, title: f.title, date: f.date, guid: f.guid,
@@ -398,7 +401,7 @@ for (const f of feed) {
     poster: n.youtube ? await posterFor(n.youtube) : '',
     paragraphs: n.paragraphs?.length ? n.paragraphs : f.paragraphs,
     chapters: (n.chapters || []).map(chapterOf).filter(Boolean),
-    made: n.made || [], extra: n.extra || ''
+    made: n.made || [], extras
   });
 }
 
@@ -422,7 +425,7 @@ const home = {
   episodes: episodes.slice().reverse().map(ep => ({
     slug: ep.slug, number: ep.number, trailer: ep.trailer, title: ep.title, date: ep.date, guid: ep.guid,
     youtube: ep.youtube, spotify: ep.spotify, link: ep.link, audio: ep.audio,
-    paragraphs: ep.paragraphs, chapters: ep.chapters, extra: ep.extra, made: ep.made.length > 0
+    paragraphs: ep.paragraphs, chapters: ep.chapters, extra: ep.extras, made: ep.made.length > 0
   }))
 };
 await writeFile(at('show.js'), `// Made by build.mjs from show.json and the feeds. Edit show.json, not this file.\nwindow.SHOW = ${JSON.stringify(home, null, 1)};\n`);
