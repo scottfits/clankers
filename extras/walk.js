@@ -12,7 +12,11 @@
            must give the same picture. Someone who has asked their device for less motion gets it once, with
            t = len.
    The stage is measured in its own units, not pixels. It is always 320 high, and g.w is its width, between
-   420 (a phone) and 600. A step has to look right across that range. */
+   420 (a phone) and 600. A step has to look right across that range.
+
+   A page that tells the story in its own words can use single pictures instead. Walk.figure('name', { alt,
+   len, draw, high }) puts one in front of the caption of every <figure data-fig="name">. It plays the first
+   time it is on screen, and high is how tall it is if not 320. vp/index.html is written this way. */
 (function () {
   if (window.Walk) return;
 
@@ -122,16 +126,78 @@
   }
   function clock(t) { var m = Math.floor(t / 60), s = Math.floor(t % 60); return (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s; }
 
+  // A canvas in box that shows one drawing at a time, a drawing being { draw, len, high }.
+  function screen(box) {
+    var cv = make('canvas'), ctx = cv.getContext('2d'), g = pen(ctx);
+    var d = null, now = 0, raf = 0, W = 0, dpr = 1;
+    cv.setAttribute('role', 'img');
+    box.appendChild(cv);
+
+    function high() { return (d && d.high) || HIGH; }
+    function paint(t) {
+      now = t;
+      if (!W || !d) return;
+      var wide = Math.max(NARROW, Math.min(WIDE, W)), k = W / wide;
+      ctx.setTransform(dpr * k, 0, 0, dpr * k, 0, 0);
+      ctx.clearRect(0, 0, wide, high());
+      ctx.globalAlpha = 1;
+      g.w = wide; g.h = high();
+      d.draw(g, Math.min(t, d.len));
+    }
+    function stop() { cancelAnimationFrame(raf); }
+    function play() {
+      stop();
+      var len = d.len, t0 = 0;
+      if (still) { paint(len); return; }
+      paint(0);
+      raf = requestAnimationFrame(function tick(ts) {
+        if (!t0) t0 = ts;
+        var t = (ts - t0) / 1000;
+        paint(t);
+        if (t < len) raf = requestAnimationFrame(tick);
+      });
+    }
+    function size() {
+      var w = Math.round(box.clientWidth), h;
+      if (!w) return;
+      h = Math.round(high() * w / Math.max(NARROW, Math.min(WIDE, w)));
+      if (w === W && cv.style.height === h + 'px') return;
+      W = w;
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      cv.style.height = h + 'px';
+      cv.width = W * dpr; cv.height = h * dpr;
+      paint(now);
+    }
+    if (window.ResizeObserver) new ResizeObserver(size).observe(box); else window.addEventListener('resize', size);
+    // The canvas is drawn before the page's font has arrived, so it is drawn again once each weight is in.
+    if (document.fonts && document.fonts.load) ['500', '600', '800'].forEach(function (weight) {
+      document.fonts.load(weight + ' 13px Inter').then(function () { paint(now); }, function () {});
+    });
+
+    return {
+      cv: cv, paint: paint, play: play, stop: stop,
+      show: function (drawing) { d = drawing; size(); },
+      // Calls fn the first time the canvas is on screen.
+      seen: function (fn) {
+        if (!window.IntersectionObserver || still) { fn(); return; }
+        var io = new IntersectionObserver(function (list) {
+          if (!list.some(function (e) { return e.isIntersecting; })) return;
+          io.disconnect();
+          fn();
+        }, { threshold: .4 });
+        io.observe(box);
+      }
+    };
+  }
+
   function mount(root, def) {
     if (root.dataset.on) return;
     root.dataset.on = '1';
     root.classList.add('walk');
-    var steps = def.steps, at = 0, now = 0, raf = 0, begun = false, W = 0, H = 0, dpr = 1;
+    var steps = def.steps, at = 0, begun = false;
 
     var label = make('p', 'walk-label', def.label);
-    var cv = make('canvas'), stage = make('div', 'walk-stage');
-    cv.setAttribute('role', 'img');
-    stage.appendChild(cv);
+    var stage = make('div', 'walk-stage'), view = screen(stage), cv = view.cv;
     var back = make('button', 'walk-step', 'Back'), next = make('button', 'walk-step', 'Next'), dots = make('ol', 'walk-dots');
     var nav = make('div', 'walk-nav');
     [back, dots, next].forEach(function (n) { nav.appendChild(n); });
@@ -149,31 +215,7 @@
       dots.appendChild(make('li')).appendChild(b);
     });
 
-    var ctx = cv.getContext('2d'), g = pen(ctx);
-
-    function paint(t) {
-      now = t;
-      if (!W) return;
-      var wide = Math.max(NARROW, Math.min(WIDE, W)), k = W / wide;
-      ctx.setTransform(dpr * k, 0, 0, dpr * k, 0, 0);
-      ctx.clearRect(0, 0, wide, HIGH);
-      ctx.globalAlpha = 1;
-      g.w = wide; g.h = HIGH;
-      steps[at].draw(g, Math.min(t, steps[at].len));
-    }
-    function play() {
-      cancelAnimationFrame(raf);
-      begun = true;
-      var len = steps[at].len, t0 = 0;
-      if (still) { paint(len); return; }
-      paint(0);
-      raf = requestAnimationFrame(function tick(ts) {
-        if (!t0) t0 = ts;
-        var t = (ts - t0) / 1000;
-        paint(t);
-        if (t < len) raf = requestAnimationFrame(tick);
-      });
-    }
+    function play() { begun = true; view.play(); }
 
     // The chapter a step belongs to, found in the list of chapters on the page.
     function chapter(sec) {
@@ -200,7 +242,9 @@
       });
       watch.hidden = !c;
       if (c) { watch.href = c.href; watch.textContent = 'Watch this part of the episode, ' + clock(s.at); }
-      if (go || begun) play(); else { cancelAnimationFrame(raf); paint(0); }
+      view.stop();
+      view.show(s);
+      if (go || begun) play(); else view.paint(0);
     }
 
     back.addEventListener('click', function () { show(at - 1, true); });
@@ -220,36 +264,34 @@
       c.click();
     });
 
-    function size() {
-      var w = Math.round(stage.clientWidth);
-      if (!w || w === W) return;
-      W = w;
-      H = Math.round(HIGH * W / Math.max(NARROW, Math.min(WIDE, W)));
-      dpr = Math.min(window.devicePixelRatio || 1, 2);
-      cv.style.height = H + 'px';
-      cv.width = W * dpr; cv.height = H * dpr;
-      paint(now);
-    }
-    if (window.ResizeObserver) new ResizeObserver(size).observe(stage); else window.addEventListener('resize', size);
-    size();
     show(0, false);
-
     // The first step starts the first time the stage is on screen.
-    if (window.IntersectionObserver && !still) {
-      var seen = new IntersectionObserver(function (list) {
-        if (!list.some(function (e) { return e.isIntersecting; })) return;
-        seen.disconnect();
-        if (!begun) play();
-      }, { threshold: .4 });
-      seen.observe(stage);
-    } else play();
-    // The stage is drawn before the page's font has arrived, so it is drawn again once each weight is in.
-    if (document.fonts && document.fonts.load) ['500', '600', '800'].forEach(function (weight) {
-      document.fonts.load(weight + ' 13px Inter').then(function () { paint(now); }, function () {});
-    });
+    view.seen(function () { if (!begun) play(); });
+  }
+
+  // One picture, put in front of the figure's caption, with a way to play it again at the end of the caption.
+  function figure(root, def) {
+    if (root.dataset.on) return;
+    root.dataset.on = '1';
+    var stage = make('div', 'fig-stage'), view = screen(stage), caption = root.querySelector('figcaption');
+    root.insertBefore(stage, root.firstChild);
+    view.cv.setAttribute('aria-label', def.alt);
+    view.show(def);
+    view.paint(0);
+    view.cv.addEventListener('click', view.play);
+    if (caption && !still) {
+      var again = make('button', 'fig-again', 'Play again');
+      again.addEventListener('click', view.play);
+      caption.appendChild(document.createTextNode(' '));
+      caption.appendChild(again);
+    }
+    view.seen(view.play);
   }
 
   window.Walk = function (name, def) {
     [].forEach.call(document.querySelectorAll('[data-extra="' + name + '"]'), function (root) { mount(root, def); });
+  };
+  window.Walk.figure = function (name, def) {
+    [].forEach.call(document.querySelectorAll('figure[data-fig="' + name + '"]'), function (root) { figure(root, def); });
   };
 })();
