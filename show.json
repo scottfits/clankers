@@ -47,6 +47,37 @@
         "It solved a lot of things that would have been super annoying (I am a Final Cut + Logic Pro user and could have fixed it by hand). But it found the camera’s sound ran 40 milliseconds behind my mic and shifted the mix so my lips match. I had recorded too loud and clipped my mic, so Claude wrote its own repair tool that guesses what each flattened peak should have looked like from the audio around it. Another crazy one was Claude’s voice was leaking into my mic, so it used its own clean recording to subtract itself. Then it took the room echo off my voice and matched our volumes.",
         "I didn’t like some of Claude’s cheesy AI-tell lines, so it rebuilt sentences out of words it had actually said. Another cool moment is partway through recording I told Claude the RH proof had been announced after its training cutoff. It looked it up and was surprised."
       ]
+    },
+    {
+      "slug": "pvsnp",
+      "number": 2,
+      "title": "Are We Closer to Solving P vs NP?",
+      "guid": "bdeb1301-4f46-402f-9412-fd49537fadb6",
+      "youtube": "coQ16_MqK_Y",
+      "spotify": "https://open.spotify.com/episode/7Eru9Z7D7HIUO5GNGmOxRb",
+      "paragraphs": [
+        "What is P vs NP, and why does it matter? I asked Claude to teach it to me from scratch, a few hours after Anthropic posted a Claude-written proof of VP ≠ VNP, the algebraic cousin of the problem.",
+        "We start with why checking a Sudoku is easy and solving one is not, then go through what P and NP mean, Gödel’s 1956 letter to von Neumann, how Cook and Karp showed that Sudoku, routing and scheduling are the same problem in disguise, and what would change if P equaled NP. We end on the Millennium Prize scoreboard and whether AI needs a proof at all. Animated throughout."
+      ],
+      "chapters": [
+        "00:00 How computer scientists measure hard problems",
+        "01:21 Checking a Sudoku vs solving one",
+        "02:44 Writing a program to solve Sudoku",
+        "03:48 What P and NP mean",
+        "05:27 Why P = NP is even possible",
+        "06:13 What breaks if P = NP",
+        "08:20 Gödel’s letter to von Neumann",
+        "09:32 Cook, Karp and the master key",
+        "10:27 How every hard problem turns into the same one",
+        "12:02 A world where P = NP",
+        "13:26 Claude’s claimed VP ≠ VNP proof",
+        "14:59 VP vs VNP: determinant and permanent",
+        "16:19 The Millennium Prize scoreboard",
+        "18:16 AlphaFold and good guesses",
+        "19:12 Can neural networks skip the problem?",
+        "20:19 Would AGI crack a hard Sudoku?",
+        "21:14 Wrap"
+      ]
     }
   ]
 }
