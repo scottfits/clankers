@@ -13,6 +13,66 @@ window.SHOW = {
  },
  "episodes": [
   {
+   "slug": "openai-just-found-the-speed-limit-to-matrix-multiplication",
+   "number": 3,
+   "trailer": false,
+   "title": "OpenAI Just Found the Speed Limit to Matrix Multiplication",
+   "date": "2026-11-25T16:47:00.000Z",
+   "guid": "c3e3bf65-3573-47f0-a773-7dce51f65a6e",
+   "youtube": "",
+   "spotify": "",
+   "link": "https://podcasters.spotify.com/pod/show/scott-fitsimones/episodes/OpenAI-Just-Found-the-Speed-Limit-to-Matrix-Multiplication-e3t12j0",
+   "audio": "https://anchor.fm/s/11a757edc/podcast/play/130107424/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-10-25%2F437624598-44100-2-d96af598b40678.mp3",
+   "paragraphs": [
+    "OpenAI just found the lower bound limit to matrix multiplication. On November 24 it posted a 111-page paper claiming the matrix multiplication exponent is exactly 9/4, meaning no algorithm can multiply two n-by-n matrices in fewer than about n^2.25 steps. The October half of the result, an algorithm that gets down to 2.25, has since been rewritten and checked by outside mathematicians. The new half, the proof that nothing can beat it, has not been reviewed yet.",
+    "I asked Claude to walk me through it from the start: how you multiply two matrices by hand, why that takes n cubed steps, the 1969 trick where Volker Strassen did a 2-by-2 in seven multiplications instead of eight, and the 57 years of records that followed, including 36 years spent improving the number by 0.004. Then what the new proof is reported to do, why none of these algorithms run on a GPU, and how much of the claim has been checked so far. Animated throughout."
+   ],
+   "chapters": [
+    [
+     0,
+     "What OpenAI is claiming"
+    ],
+    [
+     57,
+     "Multiplying two matrices the schoolbook way"
+    ],
+    [
+     99,
+     "Counting the multiplications: n cubed"
+    ],
+    [
+     143,
+     "Strassen's trick: seven instead of eight"
+    ],
+    [
+     208,
+     "Omega, and the claim that it is exactly 9/4"
+    ],
+    [
+     260,
+     "Why 2.25? The proof sketch"
+    ],
+    [
+     320,
+     "57 years of records"
+    ],
+    [
+     412,
+     "Does this change anything for GPUs and AI?"
+    ],
+    [
+     485,
+     "Has anyone verified it?"
+    ],
+    [
+     538,
+     "Closing thoughts"
+    ]
+   ],
+   "extra": [],
+   "made": false
+  },
+  {
    "slug": "pvsnp",
    "number": 2,
    "trailer": false,

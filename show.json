@@ -86,6 +86,25 @@
         "20:19 Would AGI crack a hard Sudoku?",
         "21:14 Wrap"
       ]
+    },
+    {
+      "slug": "openai-just-found-the-speed-limit-to-matrix-multiplication",
+      "number": 3,
+      "title": "OpenAI Just Found the Speed Limit to Matrix Multiplication",
+      "date": "2026-11-25T16:47:00.000Z",
+      "guid": "c3e3bf65-3573-47f0-a773-7dce51f65a6e",
+      "chapters": [
+        "00:00 What OpenAI is claiming",
+        "00:57 Multiplying two matrices the schoolbook way",
+        "01:39 Counting the multiplications: n cubed",
+        "02:23 Strassen's trick: seven instead of eight",
+        "03:28 Omega, and the claim that it is exactly 9/4",
+        "04:20 Why 2.25? The proof sketch",
+        "05:20 57 years of records",
+        "06:52 Does this change anything for GPUs and AI?",
+        "08:05 Has anyone verified it?",
+        "08:58 Closing thoughts"
+      ]
     }
   ]
 }
