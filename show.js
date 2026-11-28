@@ -13,6 +13,86 @@ window.SHOW = {
  },
  "episodes": [
   {
+   "slug": "the-poincare-conjecture-the-only-millennium-prize-problem-so",
+   "number": 4,
+   "trailer": false,
+   "title": "The Poincaré Conjecture: The Only Millennium Prize Problem Solved By a Human",
+   "date": "2026-11-27T16:50:06.000Z",
+   "guid": "349a5f0c-e4e6-48aa-9d78-eb43e5c3b05a",
+   "youtube": "emWLHUv-NDA",
+   "spotify": "",
+   "link": "https://podcasters.spotify.com/pod/show/scott-fitsimones/episodes/The-Poincar-Conjecture-The-Only-Millennium-Prize-Problem-Solved-By-a-Human-e3t4jb9",
+   "audio": "https://anchor.fm/s/11a757edc/podcast/play/130222889/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-10-27%2F437784306-44100-2-8d8f47ad80e8f8.mp3",
+   "paragraphs": [
+    "The Poincaré conjecture is the only Millennium Prize problem that has officially been solved, and a person did it. Grigori Perelman posted his proof on arXiv in 2002 and 2003, never sent it to a journal, then turned down the Fields Medal and the million dollars. This September OpenAI said its model had resolved a second one, Navier–Stokes, and the Clay Institute hasn't ruled on it yet.",
+    "I ask Claude what Perelman actually solved. We start with topology, where a banana is a sphere and a donut isn't, then an ant with a string telling a sphere world from a donut world, what a 3-sphere is, whether our universe could be one, a century of failed proofs, Ricci flow, and how Perelman finished Hamilton's program. Then why he walked away and where the money went. Animated throughout."
+   ],
+   "chapters": [
+    [
+     0,
+     "The million-dollar proof nobody collected"
+    ],
+    [
+     41,
+     "Why a banana is a sphere"
+    ],
+    [
+     75,
+     "The donut and the hole"
+    ],
+    [
+     112,
+     "An ant, a string, and two worlds"
+    ],
+    [
+     174,
+     "What Poincaré actually asked"
+    ],
+    [
+     230,
+     "Solved in every dimension but ours"
+    ],
+    [
+     300,
+     "Picturing a 3-sphere"
+    ],
+    [
+     365,
+     "Is the universe curved?"
+    ],
+    [
+     428,
+     "A century of failed proofs"
+    ],
+    [
+     517,
+     "Ricci flow"
+    ],
+    [
+     579,
+     "How Perelman finished it"
+    ],
+    [
+     659,
+     "Why he turned down the prize"
+    ],
+    [
+     747,
+     "Where the million dollars went"
+    ],
+    [
+     787,
+     "Geometrization, and a sequel"
+    ],
+    [
+     850,
+     "Outro"
+    ]
+   ],
+   "extra": [],
+   "made": false
+  },
+  {
    "slug": "openai-just-found-the-speed-limit-to-matrix-multiplication",
    "number": 3,
    "trailer": false,

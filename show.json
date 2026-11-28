@@ -105,6 +105,31 @@
         "08:05 Has anyone verified it?",
         "08:58 Closing thoughts"
       ]
+    },
+    {
+      "slug": "the-poincare-conjecture-the-only-millennium-prize-problem-so",
+      "number": 4,
+      "title": "The Poincaré Conjecture: The Only Millennium Prize Problem Solved By a Human",
+      "date": "2026-11-27T16:50:06.000Z",
+      "guid": "349a5f0c-e4e6-48aa-9d78-eb43e5c3b05a",
+      "youtube": "emWLHUv-NDA",
+      "chapters": [
+        "00:00 The million-dollar proof nobody collected",
+        "00:41 Why a banana is a sphere",
+        "01:15 The donut and the hole",
+        "01:52 An ant, a string, and two worlds",
+        "02:54 What Poincaré actually asked",
+        "03:50 Solved in every dimension but ours",
+        "05:00 Picturing a 3-sphere",
+        "06:05 Is the universe curved?",
+        "07:08 A century of failed proofs",
+        "08:37 Ricci flow",
+        "09:39 How Perelman finished it",
+        "10:59 Why he turned down the prize",
+        "12:27 Where the million dollars went",
+        "13:07 Geometrization, and a sequel",
+        "14:10 Outro"
+      ]
     }
   ]
 }
